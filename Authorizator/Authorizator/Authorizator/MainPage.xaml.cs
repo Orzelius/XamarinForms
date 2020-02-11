@@ -14,12 +14,29 @@ namespace Authorizator {
         public MainPage() {
             InitializeComponent();
         }
+        protected override void OnAppearing() {
+            base.OnAppearing();
+            if(App.CurrentUser != null) {
+                LoggedInMsg.Text = "Logged in as " + App.CurrentUser.Username;
+                LogoutButton.IsVisible = true;
+                LoginBtn.IsVisible = false;
+                RegisterBtn.IsVisible = false;
+
+            }
+        }
         async void OnLoginClicked(object sender, EventArgs args) {
+            var data =  App.Database.GetAsync();
             await Navigation.PushAsync(new Login());
         }
         async void OnRegisterClicked(object sender, EventArgs args) {
             await Navigation.PushAsync(new Register());
-
+        }
+        void OnLogoutClicked(object sender, EventArgs args) {
+            App.CurrentUser = null;
+            LoggedInMsg.Text = "You are not logged in";
+            LogoutButton.IsVisible = false;
+            LoginBtn.IsVisible = true;
+            RegisterBtn.IsVisible = true;
         }
     }
 }

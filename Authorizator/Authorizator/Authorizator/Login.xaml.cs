@@ -13,5 +13,21 @@ namespace Authorizator {
         public Login() {
             InitializeComponent();
         }
+
+        private async void LoginClicked(object sender, EventArgs e) {
+            if (Pw.Text.Length > 0 && !string.IsNullOrEmpty(Username.Text)) {
+                var users = await App.Database.GetAsync();
+                var user = users.FirstOrDefault(u => u.Username == Username.Text && u.Password == Pw.Text);
+                if(user != null) {
+                    App.CurrentUser = user;
+                    InvalidPw.IsVisible = false;
+                    await Navigation.PopAsync();
+                }
+                InvalidPw.IsVisible = true;
+            }
+            else {
+
+            }
+        }
     }
 }

@@ -8,20 +8,22 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Register" TextColor="Coral" FontSize="30" HorizontalTextAlignment="Center"  Margin="0, 10, 0, 0"></Label>
+            <Label Text="" HorizontalOptions="Center" TextColor="Red" IsVisible="False" x:Name="ErrorMsg"></Label>
             <Label Text="Username or email" Margin="0,30,0,0" HorizontalTextAlignment="Center" FontSize="Large"></Label>
             <Frame Margin="10,0,10,0" BorderColor="Coral" CornerRadius="30">
-                <Entry Margin="0,0,0,0"></Entry>
+                <Entry Margin="0,0,0,0" x:Name="Username"></Entry>
             </Frame>
-            <Label Text="Password" Margin="0,30,0,0" HorizontalTextAlignment="Center" FontSize="Large"></Label>
             <Frame Margin="10,20,10,0" BorderColor="Coral" CornerRadius="30">
                 <StackLayout>
-                    <Label Text="Password" Margin="0,30,0,0" HorizontalTextAlignment="Center" FontSize="Large"></Label>
-                    <Entry Margin="0,0,0,0" IsPassword="True"></Entry>
-                    <Label Text="Re-type Password" Margin="0,30,0,0" HorizontalTextAlignment="Center" FontSize="Large"></Label>
-                    <Entry Margin="0,0,0,0" IsPassword="True"></Entry>
+                    <Label Text="Password" Margin="0,0,0,0" HorizontalTextAlignment="Center" FontSize="Large"></Label>
+                    <Entry Margin="0,0,0,0" IsPassword="True" x:Name="Pw1"></Entry>
+                    <Label Text="Re-type Password" Margin="0,0,0,0" HorizontalTextAlignment="Center" FontSize="Large"></Label>
+                    <Entry Margin="0,0,0,0" IsPassword="True" x:Name="Pw2"></Entry>
                 </StackLayout>
             </Frame>
-            <Button BackgroundColor="White" BorderColor="Coral" BorderWidth="2" Margin="100,30,100,0" Text="Register" TextColor="Coral" CornerRadius="10"></Button>
+            <Button BackgroundColor="White" BorderColor="Coral" BorderWidth="2" 
+                    Margin="100,30,100,0" Text="Register" TextColor="Coral" CornerRadius="10"
+                    Clicked="RegisterClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
