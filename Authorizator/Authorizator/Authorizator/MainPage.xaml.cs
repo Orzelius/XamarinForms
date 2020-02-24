@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authorizator.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,19 +14,20 @@ namespace Authorizator {
     public partial class MainPage : ContentPage {
         public MainPage() {
             InitializeComponent();
+
+            //BindingContext = this;
         }
-        protected override void OnAppearing() {
+        protected async override void OnAppearing() {
             base.OnAppearing();
-            if(App.CurrentUser != null) {
+
+            if (App.CurrentUser != null) {
                 LoggedInMsg.Text = "Logged in as " + App.CurrentUser.Username;
                 LogoutButton.IsVisible = true;
                 LoginBtn.IsVisible = false;
                 RegisterBtn.IsVisible = false;
-
             }
         }
         async void OnLoginClicked(object sender, EventArgs args) {
-            var data =  App.Database.GetAsync();
             await Navigation.PushAsync(new Login());
         }
         async void OnRegisterClicked(object sender, EventArgs args) {
