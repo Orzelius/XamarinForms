@@ -1,36 +1,43 @@
-﻿using Plugin.Media;
+﻿using Gallery.Models;
+using Gallery.Views;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Gallery.ViewModels {
     class AddItemViewModel : BaseViewModel {
-        public async Task TakePickture() {
-            await CrossMedia.Current.Initialize();
+        Image image;
+        public Image Image {
+            get { return image; }
+            set { SetProperty(ref image, value); }
+        }
 
-            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported) {
-                //DisplayAlert("No Camera", ":( No camera available.", "OK");
-                return;
-            }
+        string title;
+        public string ImageTitle {
+            get { return title; }
+            set { SetProperty(ref title, value); }
+        }
 
-            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions {
-                Directory = "Sample",
-                Name = "test.jpg"
-            });
+        string desc;
+        public string ImageDesc {
+            get { return desc; }
+            set { SetProperty(ref desc, value); }
+        }
 
-            if (file == null)
-                return;
+        public void Initialyze(Image image) {
+            Image = image;
 
-            //await DisplayAlert("File Location", file.Path, "OK");
+            ImageTitle = DateTime.Now.ToString();
+            ImageDesc = "My image";
+        }
 
-            var image = new Image();
-
-            image.Source = ImageSource.FromStream(() => {
-                var stream = file.GetStream();
-                return stream;
-            });
+        public async Task SaveImageCommand() {
+            await DataStore.AddItemAsync(new Models.Item() { Description = ImageDesc, Text = ImageTitle, ImageSource = image.Source });
         }
     }
 }

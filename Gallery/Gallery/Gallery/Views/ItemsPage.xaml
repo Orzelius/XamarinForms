@@ -39,8 +39,8 @@
 								FontSize="13" />
                             <ff:CachedImage 
 								DownsampleToViewSize="true"
-								Source = "{Binding ImageUrl}"
-                                ErrorPlaceholder = "https://raw.githubusercontent.com/recurser/exif-orientation-examples/master/Landscape_3.jpg">
+								Source = "{Binding ImageSource}"
+                                ErrorPlaceholder = "https://banner2.cleanpng.com/20180421/ggq/kisspng-computer-icons-error-closeup-vector-5adbcf14c17ba4.4222143315243548367925.jpg">
                             </ff:CachedImage>
                         </StackLayout>
                     </ViewCell>

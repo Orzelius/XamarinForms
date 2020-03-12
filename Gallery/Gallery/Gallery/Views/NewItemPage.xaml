@@ -4,27 +4,35 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Gallery.ViewModels"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="Gallery.Views.NewItemPage"
-             Title="New Item">
+             Title="Add Picture">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
-        
+
     </ContentPage.ToolbarItems>
 
     <ContentPage.BindingContext>
         <vm:AddItemViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small" Margin="0" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Title" FontSize="Medium" />
+                <Entry Text="{Binding ImageTitle}" d:Text="Item Title" FontSize="Small" />
+                <Label Text="Description" FontSize="Medium" />
+                <Editor Text="{Binding ImageDesc}" d:Text="Item Description" FontSize="Small" Margin="0" />
+                <ff:CachedImage 
+				DownsampleToViewSize="true"
+				Source = "{Binding Image.Source}"
+                ErrorPlaceholder = "https://banner2.cleanpng.com/20180421/ggq/kisspng-computer-icons-error-closeup-vector-5adbcf14c17ba4.4222143315243548367925.jpg">
+                </ff:CachedImage>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
 </ContentPage>

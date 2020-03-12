@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using Gallery.Models;
 using Gallery.Views;
+using System.Collections.Generic;
 
 namespace Gallery.ViewModels {
     public class ItemsViewModel : BaseViewModel {

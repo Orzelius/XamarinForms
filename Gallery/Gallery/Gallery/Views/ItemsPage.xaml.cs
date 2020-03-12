@@ -40,10 +40,8 @@ namespace Gallery.Views {
         }
 
         protected override void OnAppearing() {
+            viewModel.LoadItemsCommand.Execute(null);
             base.OnAppearing();
-
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

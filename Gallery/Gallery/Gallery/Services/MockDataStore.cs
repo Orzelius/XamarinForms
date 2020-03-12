@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Gallery.Models;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace Gallery.Services {
     public class MockDataStore : IDataStore<Item> {
@@ -17,11 +18,11 @@ namespace Gallery.Services {
 
             var images = JsonConvert.DeserializeObject<ApiImage[]>(res.Result.Content.ReadAsStringAsync().Result);
 
-            foreach(var img in images) {
-                items.Add(new Item() { 
-                    Description = img.height + "x" + img.height,
-                    Text = img.author,
-                    ImageUrl = img.download_url
+            for(int x = 0; x < 3 && x < images.Length; x++) {
+                items.Add(new Item() {
+                    Description = images[x * 2].height + "x" + images[x].height,
+                    Text = "Test image by " + images[x * 2].author,
+                    ImageSource = images[x * 2].download_url
                 });
             }
         }
@@ -31,7 +32,7 @@ namespace Gallery.Services {
         }
 
         public async Task<bool> AddItemAsync(Item item) {
-            items.Add(item);
+            items.Insert(0, item);
 
             return await Task.FromResult(true);
         }
