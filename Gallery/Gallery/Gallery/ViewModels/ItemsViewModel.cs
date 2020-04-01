@@ -5,46 +5,53 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-using Gallery.Models;
 using Gallery.Views;
 using System.Collections.Generic;
+using Gallery.Data;
+using System.Linq;
+using Gallery.Services;
 
 namespace Gallery.ViewModels {
     public class ItemsViewModel : BaseViewModel {
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<PostListModel> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel() {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            Items = new ObservableCollection<PostListModel>();
+            LoadItemsCommand = new Command(() => ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) => {
-                var newItem = item as Item;
+            MessagingCenter.Subscribe<NewItemPage, PostListModel>(this, "AddItem", async (obj, item) => {
+                var newItem = item as PostListModel;
                 Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+                //await App.DataContext.Posts.AddAsync(newItem);
             });
         }
 
-        async Task ExecuteLoadItemsCommand() {
+        public async void ExecuteLoadItemsCommand() {
             if (IsBusy)
                 return;
 
             IsBusy = true;
 
-            try {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items) {
-                    Items.Add(item);
-                }
+            Items.Clear();
+            var items = App.DataContext.Posts.ToList();
+            var fileService = DependencyService.Get<FileService>();
+            foreach (var item in items) {
+                var viewItem = new PostListModel() { Description = item.Description, ImageId = item.ImageId, Text = item.Text, User = item.User };
+                viewItem.Image.Source = await fileService.RetriveImage(item.ImageId);
+                //viewItem.Image.Source = await fileService.("temp/" + item.ImageId);
+                Items.Add(viewItem);
             }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-            }
-            finally {
-                IsBusy = false;
-            }
+            IsBusy = false;
+            //try {
+            //}
+            //catch (Exception ex) {
+            //    throw (ex);
+            //}
+            //finally {
+            //    IsBusy = false;
+            //}
         }
     }
 }

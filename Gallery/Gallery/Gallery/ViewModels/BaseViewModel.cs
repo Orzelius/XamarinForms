@@ -5,13 +5,10 @@ using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
 
-using Gallery.Models;
-using Gallery.Services;
+using Gallery.Data;
 
 namespace Gallery.ViewModels {
     public class BaseViewModel : INotifyPropertyChanged {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
         bool isBusy = false;
         public bool IsBusy {
             get { return isBusy; }

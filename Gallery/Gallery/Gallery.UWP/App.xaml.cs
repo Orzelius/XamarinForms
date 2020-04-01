@@ -28,6 +28,7 @@ namespace Gallery.UWP
         /// </summary>
         public App()
         {
+            var dbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "exrin.db");
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

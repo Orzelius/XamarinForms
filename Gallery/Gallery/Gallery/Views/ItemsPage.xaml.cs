@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using Gallery.Models;
+using Gallery.Data;
 using Gallery.Views;
 using Gallery.ViewModels;
 
@@ -25,7 +25,7 @@ namespace Gallery.Views {
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args) {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as Post;
             if (item == null)
                 return;
 

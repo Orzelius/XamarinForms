@@ -4,10 +4,11 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using Gallery.Models;
+using Gallery.Data;
 using Gallery.ViewModels;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using System.IO;
 
 namespace Gallery.Views {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
@@ -16,12 +17,12 @@ namespace Gallery.Views {
     public partial class NewItemPage : ContentPage {
         private AddItemViewModel viewModel;
 
-        public Item Item { get; set; }
+        public Post Item { get; set; }
 
         public NewItemPage() {
             InitializeComponent();
 
-            Item = new Item {
+            Item = new Post {
                 Text = "Item name",
                 Description = "This is an item description."
             };
@@ -56,14 +57,14 @@ namespace Gallery.Views {
                 TakePicture();
             }
 
-
+            Stream stream;
             image.Source = ImageSource.FromStream(() =>
             {
-                var stream = file.GetStream();
+                stream = file.GetStream();
                 return stream;
             });
 
-            viewModel.Initialyze(image);
+            viewModel.Initialyze(image, file.GetStream());
         }
 
         async void Save_Clicked(object sender, EventArgs e) {

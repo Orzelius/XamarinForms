@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Foundation;
@@ -22,9 +23,12 @@ namespace Gallery.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library", "exrin.db");
+            SQLitePCL.Batteries_V2.Init();
+
             global::Xamarin.Forms.Forms.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(dbPath));
 
             return base.FinishedLaunching(app, options);
         }

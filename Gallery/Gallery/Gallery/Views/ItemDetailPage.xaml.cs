@@ -3,7 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using Gallery.Models;
+using Gallery.Data;
 using Gallery.ViewModels;
 
 namespace Gallery.Views {
@@ -22,7 +22,7 @@ namespace Gallery.Views {
         public ItemDetailPage() {
             InitializeComponent();
 
-            var item = new Item {
+            var item = new Post {
                 Text = "Item 1",
                 Description = "This is an item description."
             };
