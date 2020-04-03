@@ -30,6 +30,7 @@ namespace Gallery {
             path = dbPath;
 
             database = new DatabaseContext(dbPath);
+            database.Database.EnsureDeleted();
             database.Database.EnsureCreated();
             DependencyService.Register<FileService>();
             MainPage = new MainPage();

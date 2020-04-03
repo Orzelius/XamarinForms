@@ -22,7 +22,7 @@ namespace Gallery.Views {
         public ItemDetailPage() {
             InitializeComponent();
 
-            var item = new Post {
+            var item = new PostListModel {
                 Text = "Item 1",
                 Description = "This is an item description."
             };

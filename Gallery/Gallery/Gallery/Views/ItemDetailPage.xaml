@@ -15,7 +15,7 @@
         <Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small"/>
         <ff:CachedImage 
             DownsampleToViewSize="true"
-            Source = "{Binding Item.ImageUrl}"
+            Source = "{Binding Item.Image}"
             ErrorPlaceholder = "https://raw.githubusercontent.com/recurser/exif-orientation-examples/master/Landscape_3.jpg">
         </ff:CachedImage>
     </StackLayout>

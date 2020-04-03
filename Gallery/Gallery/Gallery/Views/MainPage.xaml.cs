@@ -10,6 +10,9 @@ namespace Gallery.Views {
     public partial class MainPage : TabbedPage {
         public MainPage() {
             InitializeComponent();
+            if(App.CurrentUser == null) {
+                Navigation.PushModalAsync(new NavigationPage(new HomePage()));
+            }
         }
     }
 }

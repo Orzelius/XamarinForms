@@ -39,7 +39,7 @@ namespace Gallery.ViewModels {
             var fileService = DependencyService.Get<FileService>();
             foreach (var item in items) {
                 var viewItem = new PostListModel() { Description = item.Description, ImageId = item.ImageId, Text = item.Text, User = item.User };
-                viewItem.Image.Source = await fileService.RetriveImage(item.ImageId);
+                viewItem.Image = await fileService.RetriveImage(item.ImageId);
                 //viewItem.Image.Source = await fileService.("temp/" + item.ImageId);
                 Items.Add(viewItem);
             }

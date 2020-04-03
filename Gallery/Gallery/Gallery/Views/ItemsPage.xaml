@@ -39,7 +39,7 @@
 								FontSize="13" />
                             <ff:CachedImage 
 								DownsampleToViewSize="true"
-								Source = "{Binding ImageSource}"
+								Source = "{Binding Image}"
                                 ErrorPlaceholder = "https://banner2.cleanpng.com/20180421/ggq/kisspng-computer-icons-error-closeup-vector-5adbcf14c17ba4.4222143315243548367925.jpg">
                             </ff:CachedImage>
                         </StackLayout>

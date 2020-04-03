@@ -15,6 +15,6 @@ namespace Gallery.Data {
         public User User { get; set; }
     }
     public class PostListModel : Post {
-        public Image Image { get; set; }
+        public ImageSource Image { get; set; }
     }
 }
