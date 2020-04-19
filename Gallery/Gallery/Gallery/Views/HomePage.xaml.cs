@@ -15,7 +15,7 @@ namespace Gallery.Views {
         }
 
         async void OnLoginClicked(object sender, EventArgs args) {
-            //await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushAsync(new LoginPage());
         }
         async void OnRegisterClicked(object sender, EventArgs args) {
             await Navigation.PushAsync(new RegisterPage());

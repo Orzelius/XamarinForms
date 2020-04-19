@@ -19,6 +19,7 @@
                x:Name="LoggedInMsg"></Label>
            
             <Button x:Name="RegisterBtn" Clicked="OnRegisterClicked" BackgroundColor="White" BorderColor="Coral" BorderWidth="2" Margin="100,10,100,10" Text="Register" CornerRadius="10" TextColor="Coral"></Button>
+            <Button x:Name="LoginBtn" Clicked="OnLoginClicked" BackgroundColor="White" BorderColor="Coral" BorderWidth="2" Margin="100,10,100,10" Text="Login" CornerRadius="10" TextColor="Coral"></Button>
 
         </StackLayout>
     </ContentPage.Content>

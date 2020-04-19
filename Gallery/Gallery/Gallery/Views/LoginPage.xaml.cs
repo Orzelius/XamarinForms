@@ -10,23 +10,19 @@ using Xamarin.Forms.Xaml;
 
 namespace Gallery.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegisterPage : ContentPage {
-        RegisterViewModel viewModel;
+    public partial class LoginPage : ContentPage {
+        LoginViewModel viewModel;
 
-        public RegisterPage() {
+        public LoginPage() {
+            BindingContext = viewModel = new LoginViewModel();
             InitializeComponent();
-            BindingContext = viewModel = new RegisterViewModel();
         }
 
         private async void Button_Clicked_1(object sender, EventArgs e) {
-            bool success = await viewModel.Register();
+            bool success = await viewModel.Login();
 
             if (success) {
-                var nav = Navigation.NavigationStack;
                 await Navigation.PushModalAsync(new MainPage());
-                //for (int x = 0; x < Navigation.NavigationStack.Count() - 1; x++) {
-                //    Navigation.RemovePage(Navigation.NavigationStack[x]);
-                //}
             }
         }
     }

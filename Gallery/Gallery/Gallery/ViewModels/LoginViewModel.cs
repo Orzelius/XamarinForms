@@ -1,22 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Gallery.ViewModels {
-    public class RegisterViewModel : BaseViewModel {
+    class LoginViewModel: BaseViewModel {
         public ICommand RegisterCommand { get; set; }
 
-        public RegisterViewModel() {
+        public LoginViewModel() {
             RegisterCommand = new Command(
             execute: async () => {
                 Console.WriteLine("This is execute of toggleCompassCmd!");
-                await Register();
+                await Login();
             },
             canExecute: () => {
                 return true;
@@ -37,12 +35,6 @@ namespace Gallery.ViewModels {
             set { SetProperty(ref _password, value); }
         }
 
-        string _password2;
-        public string Password2 {
-            get { return _password2; }
-            set { SetProperty(ref _password2, value); }
-        }
-
         string _username;
         public string Username {
             get { return _username; }
@@ -51,31 +43,22 @@ namespace Gallery.ViewModels {
 
         public void Initialyze() {
             _password = "";
-            _password2 = "";
             _username = "";
         }
 
-        public async Task<bool> Register() {
+        public async Task<bool> Login() {
             Error = "";
-            if (String.IsNullOrEmpty(_password) || String.IsNullOrEmpty(_password2) || String.IsNullOrEmpty(_username)) {
+            if (String.IsNullOrEmpty(_password) || String.IsNullOrEmpty(_username)) {
                 Error = "Password or username can't  be empty";
                 return false;
             }
-            if (_password != Password2) {
-                Error = "Passwords do not match";
-                return false;
-            }
-            if (await App.DataContext.Users.FirstOrDefaultAsync(u => u.Username == _username) != null) {
-                Error = "Username already taken";
+            var user = await App.DataContext.Users.FirstOrDefaultAsync(u => u.Username == _username && u.Password == _password);
+            if (user == null) {
+                Error = "Incorrect password or username";
                 return false;
             }
 
-            if (Error != "")
-                return false;
-            
-            await App.DataContext.Users.AddAsync(new Data.User() { Password = _password, Username = _username });
-            await App.DataContext.SaveChangesAsync();
-            App.CurrentUser = await App.DataContext.Users.FirstOrDefaultAsync(u => u.Username == _username);
+            App.CurrentUser = user;
             return true;
         }
     }

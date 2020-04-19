@@ -45,11 +45,13 @@ namespace Gallery.ViewModels {
         }
 
         public async Task SaveImageCommand() {
-            await App.DataContext.Posts.AddAsync(new Post() { Description = ImageDesc, Text = ImageTitle, ImageId = image.Source.Id.ToString() });
+            var rnd = new Random();
+            var imgId = rnd.NextDouble().ToString();
+            await App.DataContext.Posts.AddAsync(new Post() { Description = ImageDesc, Text = ImageTitle, ImageId = imgId, User = App.CurrentUser });
             await App.DataContext.SaveChangesAsync();
             var fileSys = DependencyService.Get<FileService>();
 
-            fileSys.SavePicture(image.Source.Id.ToString(), _stream, "temp");
+            fileSys.SavePicture(imgId, _stream, "temp"); ;
         }
     }
 }

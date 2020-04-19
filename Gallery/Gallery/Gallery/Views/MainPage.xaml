@@ -19,7 +19,7 @@
             </NavigationPage.Icon>
         </NavigationPage>
         
-        <NavigationPage Title="About">
+        <NavigationPage Title="About Me">
             <x:Arguments>
                 <views:AboutPage />
             </x:Arguments>

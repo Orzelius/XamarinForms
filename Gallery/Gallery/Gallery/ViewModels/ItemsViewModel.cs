@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Gallery.Data;
 using System.Linq;
 using Gallery.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gallery.ViewModels {
     public class ItemsViewModel : BaseViewModel {
@@ -23,6 +24,7 @@ namespace Gallery.ViewModels {
 
             MessagingCenter.Subscribe<NewItemPage, PostListModel>(this, "AddItem", async (obj, item) => {
                 var newItem = item as PostListModel;
+                item.User = App.CurrentUser;
                 Items.Add(newItem);
                 //await App.DataContext.Posts.AddAsync(newItem);
             });
@@ -35,11 +37,16 @@ namespace Gallery.ViewModels {
             IsBusy = true;
 
             Items.Clear();
-            var items = App.DataContext.Posts.ToList();
+            var items = App.DataContext.Posts
+                .Include(p => p.User)
+                .ToList();
             var fileService = DependencyService.Get<FileService>();
             foreach (var item in items) {
                 var viewItem = new PostListModel() { Description = item.Description, ImageId = item.ImageId, Text = item.Text, User = item.User };
-                viewItem.Image = await fileService.RetriveImage(item.ImageId);
+                viewItem.PostImage = await fileService.RetriveImage(item.ImageId);
+                if (item.User.ProfilePicSource != null){
+                    viewItem.UserImage = await fileService.RetriveImage(item.User.ProfilePicSource);
+                }
                 //viewItem.Image.Source = await fileService.("temp/" + item.ImageId);
                 Items.Add(viewItem);
             }

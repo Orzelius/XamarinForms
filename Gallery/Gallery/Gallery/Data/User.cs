@@ -12,5 +12,9 @@ namespace Gallery.Data {
         public string Password { get; set; }
         public string ProfilePicSource { get; set; }
         public List<Post> Posts { get; set; }
+
+        public override string ToString() {
+            return Username;
+        }
     }
 }
